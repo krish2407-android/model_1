@@ -12,7 +12,7 @@ function Header(){
                 <li><Link to="/login">Login</Link></li>
                 <li><Link to="/#">Contact</Link></li>
                 <li><Link to="/#">About</Link></li>
-               <a href={process.env.PUBLIC_URL + "/model1-sataticweb/index.html"}>
+               <a href="/model_1/model1-sataticweb/index.html">
   E-commerce website
 </a>
             </ul>
