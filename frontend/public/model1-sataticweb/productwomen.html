@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Women Collection</title>
+    <link rel="stylesheet" href="./css/productmen.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+
+    <div id="header"></div>
+
+    <section class="section">
+        <h1>Women Collection</h1>
+        <div class="container">
+            <div class="product-card" data-product-id="women-silk-saree">
+                <img src="./img/w1.jpg" alt="Party Dress">
+                <div class="product-info">
+                    <h2>Silk Saree</h2>
+                    <p>Beautiful sari for women.</p>
+                    <h3>₹2499</h3>
+                    <div class="btn-row">
+                        <button type="button" class="btn btn-cart">Add To Cart</button>
+                        <button type="button" class="btn btn-buy">Buy Now</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card" data-product-id="women-shirt">
+                <img src="./img/w2.jpg" alt="Summer Top">
+                <div class="product-info">
+                    <h2>Shirt</h2>
+                    <p>Light and trendy summer shirt.</p>
+                    <h3>₹899</h3>
+                    <div class="btn-row">
+                        <button type="button" class="btn btn-cart">Add To Cart</button>
+                        <button type="button" class="btn btn-buy">Buy Now</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card" data-product-id="women-casual-kurti">
+                <img src="./img/w3.jpg" alt="Casual Kurti">
+                <div class="product-info">
+                    <h2>Casual Kurti</h2>
+                    <p>Comfortable daily wear kurti.</p>
+                    <h3>₹1299</h3>
+                    <div class="btn-row">
+                        <button type="button" class="btn btn-cart">Add To Cart</button>
+                        <button type="button" class="btn btn-buy">Buy Now</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card" data-product-id="women-blue-jeans">
+                <img src="./img/w4.jpg" alt="Winter Coat">
+                <div class="product-info">
+                    <h2>Blue jeans</h2>
+                    <p>Blue jeans for women.</p>
+                    <h3>₹3199</h3>
+                    <div class="btn-row">
+                        <button type="button" class="btn btn-cart">Add To Cart</button>
+                        <button type="button" class="btn btn-buy">Buy Now</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card" data-product-id="women-party-dresses">
+                <img src="./img/w5.jpg" alt="Denim Jacket">
+                <div class="product-info">
+                    <h2>party Dresses</h2>
+                    <p>party wear for women.</p>
+                    <h3>₹1799</h3>
+                    <div class="btn-row">
+                        <button type="button" class="btn btn-cart">Add To Cart</button>
+                        <button type="button" class="btn btn-buy">Buy Now</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card" data-product-id="women-floral-skirt">
+                <img src="./img/w6.jpg" alt="Floral Skirt">
+                <div class="product-info">
+                    <h2>Floral Skirt</h2>
+                    <p>Elegant floral print skirt.</p>
+                    <h3>₹1099</h3>
+                    <div class="btn-row">
+                        <button type="button" class="btn btn-cart">Add To Cart</button>
+                        <button type="button" class="btn btn-buy">Buy Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="footer"></div>
+
+    <script>
+        function getCart() {
+            return JSON.parse(localStorage.getItem('silverCart')) || [];
+        }
+
+        function saveCart(cart) {
+            localStorage.setItem('silverCart', JSON.stringify(cart));
+        }
+
+        function getProductFromCard(card) {
+            return {
+                id: card.getAttribute('data-product-id'),
+                name: card.querySelector('.product-info h2').textContent,
+                desc: card.querySelector('.product-info p').textContent,
+                price: parseInt(card.querySelector('.product-info h3').textContent.replace(/\D/g, '')),
+                image: card.querySelector('img').getAttribute('src')
+            };
+        }
+
+        function addToCart(btn) {
+            var p = getProductFromCard(btn.closest('.product-card'));
+            var cart = getCart();
+            var found = cart.find(function(item) { return item.id === p.id; });
+            if (found) {
+                found.qty += 1;
+            } else {
+                cart.push({ id: p.id, name: p.name, desc: p.desc, price: p.price, image: p.image, qty: 1 });
+            }
+            saveCart(cart);
+            alert(p.name + ' added to cart!');
+        }
+
+        function buyNow(btn) {
+            var p = getProductFromCard(btn.closest('.product-card'));
+            window.location.href = 'productdetail.html?id=' + encodeURIComponent(p.id);
+        }
+
+        document.querySelectorAll('.product-card').forEach(function(card) {
+            card.classList.add('clickable');
+            card.addEventListener('click', function(e) {
+                if (e.target.closest('button')) return;
+                window.location.href = 'productdetail.html?id=' + encodeURIComponent(card.getAttribute('data-product-id'));
+            });
+        });
+
+        document.querySelectorAll('.btn-cart').forEach(function(btn) {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                addToCart(this);
+            });
+        });
+
+        document.querySelectorAll('.btn-buy').forEach(function(btn) {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                buyNow(this);
+            });
+        });
+
+        $(document).ready(function() {
+            $("#header").load("header.html");
+            $("#footer").load("footer.html");
+        });
+    </script>
+
+</body>
+</html>

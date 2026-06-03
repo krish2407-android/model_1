@@ -1,0 +1,18 @@
+nav{
+  background-color: lightblue;
+}
+
+nav ul{
+  display: flex;
+  justify-content: right;
+  list-style: none;
+  align-items: center;
+  height: 60px;
+}
+nav ul li{
+  margin: 0px 30px;
+}
+nav ul li a{
+  text-decoration: none;
+  color: black;
+}

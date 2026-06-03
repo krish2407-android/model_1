@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="./css/login.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+
+    <div id="header"></div>
+
+    <section class="section">
+        <form class="form" id="loginForm">
+            <h2>Login</h2>
+            <div class="input">
+                <label>Email</label>
+                <input type="email" id="loginEmail" placeholder="Enter your email" required>
+            </div>
+            <div class="input">
+                <label>Password</label>
+                <input type="password" id="loginPassword" placeholder="Enter your password" required>
+            </div>
+            <button type="submit" class="btn">Login</button>
+            <p class="bottom">Don't have an account? <a href="register.html">Register</a></p>
+            <p class="bottom"><a href="index.html">Back to Home</a></p>
+        </form>
+    </section>
+
+    <div id="footer"></div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            var email = document.getElementById('loginEmail').value.trim().toLowerCase();
+            var password = document.getElementById('loginPassword').value;
+            var users = JSON.parse(localStorage.getItem('silverUsers') || '[]');
+            var user = users.find(function (u) {
+                return u.email === email && u.password === password;
+            });
+
+            if (!user) {
+                alert('Wrong email or password');
+                return;
+            }
+
+            localStorage.setItem(
+                'silverUser',
+                JSON.stringify({
+                    name: user.name,
+                    email: (user.email || '').trim().toLowerCase()
+                })
+            );
+            localStorage.setItem('silverLoggedIn', '1');
+            window.location.href = 'index.html';
+        });
+
+        $(document).ready(function () {
+            $('#header').load('header.html');
+            $('#footer').load('footer.html');
+        });
+    </script>
+
+</body>
+</html>
