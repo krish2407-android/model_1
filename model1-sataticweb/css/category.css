@@ -1,0 +1,359 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background: whitesmoke;
+    color: black;
+}
+
+.section {
+    padding: 110px 0 60px;
+    max-width: none;
+    width: 100%;
+}
+
+.page-intro {
+    text-align: center;
+    margin-bottom: 36px;
+    padding: 0 5%;
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.page-intro h1 {
+    font-size: clamp(28px, 4vw, 40px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 10px;
+}
+
+.intro-text {
+    color: dimgray;
+    font-size: 15px;
+    max-width: 520px;
+    margin: 0 auto;
+    line-height: 1.5;
+}
+
+.category-layout {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    width: 100%;
+    gap: 0;
+}
+
+.sidebar {
+    width: 280px;
+    min-width: 280px;
+    flex-shrink: 0;
+    margin: 0;
+    background: white;
+    padding: 24px 22px;
+    border-radius: 0;
+    border-right: 1px solid gainsboro;
+    box-shadow: 4px 0 20px lightgray;
+    position: sticky;
+    top: 72px;
+    left: 0;
+    z-index: 10;
+    align-self: flex-start;
+    min-height: calc(100vh - 72px);
+    max-height: calc(100vh - 72px);
+    overflow-y: auto;
+}
+
+.sidebar-title {
+    font-size: 20px;
+    margin-bottom: 18px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid whitesmoke;
+}
+
+.filter-block {
+    margin-bottom: 22px;
+}
+
+.filter-heading {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: gray;
+    margin-bottom: 12px;
+}
+
+.filter-hint {
+    font-size: 12px;
+    color: gray;
+    margin-bottom: 12px;
+    line-height: 1.4;
+}
+
+.cat-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.cat-btn {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid gainsboro;
+    background: whitesmoke;
+    color: black;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 15px;
+    text-align: left;
+}
+
+.cat-btn:hover {
+    background: whitesmoke;
+    border-color: lightgray;
+}
+
+.cat-btn.active {
+    background: black;
+    color: white;
+    border-color: black;
+}
+
+.price-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.price-label {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 12px;
+    color: dimgray;
+}
+
+.price-label input {
+    width: 100%;
+    padding: 10px 10px;
+    border: 1px solid lightgray;
+    border-radius: 8px;
+    font-size: 15px;
+}
+
+.price-label input:focus {
+    outline: none;
+    border-color: black;
+}
+
+.btn-filter {
+    width: 100%;
+    padding: 11px;
+    border: none;
+    border-radius: 8px;
+    background: black;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.btn-filter:hover {
+    background: dimgray;
+}
+
+.btn-clear {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid silver;
+    border-radius: 8px;
+    background: white;
+    color: dimgray;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.btn-clear:hover {
+    background: whitesmoke;
+    border-color: darkgray;
+}
+
+.products-area {
+    flex: 1;
+    min-width: 0;
+    padding: 0 5% 0 32px;
+    max-width: calc(1280px + 10%);
+}
+
+.products-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.result-count {
+    font-size: 14px;
+    color: dimgray;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 22px;
+}
+
+.category-group {
+    margin-bottom: 44px;
+}
+
+.category-group:last-child {
+    margin-bottom: 0;
+}
+
+.category-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 18px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid black;
+}
+
+.view-all-link {
+    font-size: 14px;
+    font-weight: 500;
+    color: dimgray;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.view-all-link:hover {
+    color: black;
+    text-decoration: underline;
+}
+
+.category-products {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 22px;
+}
+
+.product-card {
+    background: white;
+    border-radius: 14px;
+    overflow: hidden;
+    cursor: pointer;
+    border: 1px solid whitesmoke;
+}
+
+
+.product-card img {
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+    display: block;
+}
+
+.product-info {
+    padding: 16px 16px 18px;
+}
+
+.product-info h2 {
+    font-size: 18px;
+    margin-bottom: 8px;
+    line-height: 1.25;
+}
+
+.product-info p {
+    color: dimgray;
+    margin-bottom: 10px;
+    font-size: 14px;
+    line-height: 1.45;
+    min-height: 2.9em;
+}
+
+.price-tag {
+    margin-bottom: 14px;
+    font-size: 18px;
+    font-weight: 700;
+    color: black;
+}
+
+.btn-row {
+    display: flex;
+    gap: 8px;
+}
+
+.btn {
+    flex: 1;
+    padding: 10px 8px;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.btn-cart {
+    background: black;
+    color: white;
+}
+
+.btn-cart:hover {
+    opacity: 0.9;
+}
+
+.btn-buy {
+    background: white;
+    color: black;
+    border: 1px solid black;
+}
+
+.btn-buy:hover {
+    background: whitesmoke;
+}
+#scrollTopBtn{
+    position: sticky;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    border: none;
+    border-radius: 50%;
+    background: black;
+    color: white;
+    font-size: 22px;
+    cursor: pointer;
+    display: none;
+    margin-top: 20px;
+    margin-left: 150vh;
+}
+
+#scrollTopBtn:hover{
+    background: black;
+}
+
+.empty-msg {
+    margin-top: 20px;
+    padding: 16px 18px;
+    background: oldlace;
+    border: 1px solid peachpuff;
+    border-radius: 10px;
+    color: red;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.empty-msg[hidden] {
+    display: none;
+}

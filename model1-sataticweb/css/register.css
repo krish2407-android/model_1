@@ -1,0 +1,135 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: whitesmoke;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.section {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 120px 20px 60px;
+}
+
+.form {
+    background: white;
+    width: 100%;
+    max-width: 440px;
+    padding: 35px;
+    border-radius: 12px;
+}
+
+.form h2 {
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+.text {
+    text-align: center;
+    color: black;
+    font-size: 14px;
+    margin-bottom: 25px;
+}
+
+.input {
+    margin-bottom: 16px;
+}
+
+.input label {
+    display: block;
+    margin-bottom: 6px;
+    color: gray;
+    font-size: 14px;
+}
+
+.input input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid lightgray;
+    border-radius: 6px;
+    font-size: 15px;
+}
+
+.input input:focus {
+    outline: none;
+    border-color: black;
+}
+
+.input input.input-error {
+    border-color: red;
+}
+
+.input input.input-error:focus {
+    border-color: red;
+}
+
+.field-error {
+    display: block;
+    min-height: 18px;
+    font-size: 12px;
+    color: red;
+    margin-top: 4px;
+}
+
+.agree-wrap {
+    margin-bottom: 20px;
+}
+
+.agree-wrap.agree-error .agree {
+    color: red;
+}
+
+.agree {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 20px;
+    font-size: 13px;
+    color: gray;
+}
+
+.agree input {
+    margin-top: 3px;
+}
+
+.agree a {
+    color: black;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.btn {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    background: black;
+    color: white;
+    font-size: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.link {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.link a {
+    color: black;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.link a:hover {
+    text-decoration: underline;
+}
