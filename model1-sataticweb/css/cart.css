@@ -1,0 +1,179 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: whitesmoke;
+}
+
+.section {
+    width: 100%;
+    padding: 100px 5% 60px;
+}
+
+.section h1 {
+    text-align: center;
+    font-size: 42px;
+    margin-bottom: 40px;
+}
+
+.section .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+}
+
+.cart {
+    flex: 2;
+}
+
+.cart-card {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.cart-card img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.item-info {
+    flex: 1;
+}
+
+.item-info h2 {
+    font-size: 24px;
+    margin-bottom: 8px;
+}
+
+.item-info p {
+    color: gray;
+    margin-bottom: 10px;
+}
+
+.size-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.size-row label {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.size-row select {
+    padding: 8px 12px;
+    border: 1px solid lightgray;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.item-info h3 {
+    font-size: 22px;
+    margin-bottom: 15px;
+}
+
+.qty-box {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.qty-box button {
+    width: 36px;
+    height: 36px;
+    border: none;
+    background: black;
+    color: white;
+    font-size: 18px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.qty-box span {
+    font-size: 18px;
+}
+
+.btn {
+    padding: 12px 20px;
+    border: none;
+    background: black;
+    color: white;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background: dimgray;
+}
+
+.remove-btn {
+    background: crimson;
+}
+
+.remove-btn:hover {
+    background: darkred;
+}
+
+.order {
+    flex: 1;
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    position: sticky;
+    top: 100px;
+}
+
+.order h2 {
+    font-size: 28px;
+    margin-bottom: 25px;
+}
+
+.price {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    border-top: 2px solid lightgray;
+    padding-top: 15px;
+    margin-top: 10px;
+}
+
+.order .btn {
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+    padding: 15px;
+    text-align: center;
+    text-decoration: none;
+}
+
+.empty-msg {
+    text-align: center;
+    padding: 60px 20px;
+    font-size: 18px;
+    color: gray;
+    background: white;
+    border-radius: 15px;
+}
+
+.empty-msg a {
+    color: black;
+    font-weight: 600;
+}

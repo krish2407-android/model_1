@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+    <link rel="stylesheet" href="./css/cart.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+
+    <div id="header"></div>
+
+    <section class="section">
+        <h1>Your Shopping Cart</h1>
+        <div class="container">
+            <div class="cart" id="cartItems"></div>
+            <div class="order">
+                <h2>Order Summary</h2>
+                <div class="price">
+                    <span>Subtotal</span>
+                    <span id="subtotal">₹0</span>
+                </div>
+                <div class="price">
+                    <span>Delivery</span>
+                    <span id="delivery">₹0</span>
+                </div>
+                <div class="price">
+                    <span>Total</span>
+                    <span id="total">₹0</span>
+                </div>
+                <a href="payment.html" class="btn" id="checkoutBtn" onclick="localStorage.removeItem('silverBuyNow');">Proceed To Checkout</a>
+            </div>
+        </div>
+    </section>
+
+    <div id="footer"></div>
+
+    <script>
+        var SIZES = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
+
+        function getCart() {
+            return JSON.parse(localStorage.getItem('silverCart')) || [];
+        }
+
+        function saveCart(cart) {
+            localStorage.setItem('silverCart', JSON.stringify(cart));
+        }
+
+        function getTotals(cart) {
+            var subtotal = 0;
+            cart.forEach(function(item) {
+                subtotal += item.price * item.qty;
+            });
+            var delivery = cart.length > 0 ? 99 : 0;
+            return { subtotal: subtotal, delivery: delivery, total: subtotal + delivery };
+        }
+
+        function sizeSelectHtml(item) {
+            var sz = item.size || '';
+            var html = '<div class="size-row"><label>Size</label><select onchange="changeSize(\'' + item.id + '\', \'' + sz + '\', this.value)">';
+            html += '<option value="">Select size</option>';
+            SIZES.forEach(function (s) {
+                html += '<option value="' + s + '"' + (sz === s ? ' selected' : '') + '>' + s + '</option>';
+            });
+            html += '</select></div>';
+            return html;
+        }
+
+        function renderCart() {
+            var cart = getCart();
+            var box = document.getElementById('cartItems');
+            var checkoutBtn = document.getElementById('checkoutBtn');
+
+            if (cart.length === 0) {
+                box.innerHTML = '<p class="empty-msg">Your cart is empty. <a href="productmen.html">Shop now</a></p>';
+                checkoutBtn.style.pointerEvents = 'none';
+                checkoutBtn.style.opacity = '0.5';
+            } else {
+                checkoutBtn.style.pointerEvents = 'auto';
+                checkoutBtn.style.opacity = '1';
+                var html = '';
+                cart.forEach(function(item) {
+                    var sz = item.size || '';
+                    html += '<div class="cart-card" data-id="' + item.id + '">';
+                    html += '<img src="' + item.image + '" alt="' + item.name + '">';
+                    html += '<div class="item-info">';
+                    html += '<h2>' + item.name + '</h2>';
+                    html += '<p>' + item.desc + '</p>';
+                    html += sizeSelectHtml(item);
+                    html += '<h3>₹' + item.price + '</h3>';
+                    html += '<div class="qty-box">';
+                    html += '<button onclick="decreaseQty(\'' + item.id + '\', \'' + sz + '\')">-</button>';
+                    html += '<span>' + item.qty + '</span>';
+                    html += '<button onclick="increaseQty(\'' + item.id + '\', \'' + sz + '\')">+</button>';
+                    html += '</div>';
+                    html += '</div>';
+                    html += '<button class="btn remove-btn" onclick="removeItem(\'' + item.id + '\', \'' + sz + '\')">Remove</button>';
+                    html += '</div>';
+                });
+                box.innerHTML = html;
+            }
+
+            var totals = getTotals(cart);
+            document.getElementById('subtotal').textContent = '₹' + totals.subtotal;
+            document.getElementById('delivery').textContent = '₹' + totals.delivery;
+            document.getElementById('total').textContent = '₹' + totals.total;
+        }
+
+        function findItem(cart, id, size) {
+            return cart.find(function(p) {
+                return p.id === id && (p.size || '') === (size || '');
+            });
+        }
+
+        function increaseQty(id, size) {
+            var cart = getCart();
+            var item = findItem(cart, id, size);
+            if (item) {
+                item.qty += 1;
+                saveCart(cart);
+                renderCart();
+            }
+        }
+
+        function decreaseQty(id, size) {
+            var cart = getCart();
+            var item = findItem(cart, id, size);
+            if (item && item.qty > 1) {
+                item.qty -= 1;
+                saveCart(cart);
+                renderCart();
+            }
+        }
+
+        function changeSize(id, oldSize, newSize) {
+            if (!newSize) return;
+            var cart = getCart();
+            var item = findItem(cart, id, oldSize);
+            if (!item) return;
+            var dup = findItem(cart, id, newSize);
+            if (dup && dup !== item) {
+                dup.qty += item.qty;
+                cart = cart.filter(function (p) {
+                    return !(p.id === id && (p.size || '') === (oldSize || ''));
+                });
+            } else {
+                item.size = newSize;
+            }
+            saveCart(cart);
+            renderCart();
+        }
+
+        function removeItem(id, size) {
+            var cart = getCart();
+            cart = cart.filter(function(p) {
+                return !(p.id === id && (p.size || '') === (size || ''));
+            });
+            saveCart(cart);
+            renderCart();
+        }
+
+        renderCart();
+
+        $(document).ready(function() {
+            $("#header").load("header.html");
+            $("#footer").load("footer.html");
+        });
+    </script>
+
+</body>
+</html>

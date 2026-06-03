@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Product Detail</title>
+
+    <link rel="stylesheet" href="./css/productdetail.css">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="./js/products.js"></script>
+
+</head>
+
+<body>
+
+    <div id="header"></div>
+
+    <section class="page" id="main">
+
+        <a href="category.html" class="back" id="backLink">← Back</a>
+
+        <div class="box1">
+
+            <div class="pic">
+                <img id="img" src="./img/men1.jpg" alt="">
+            </div>
+
+            <div class="info">
+
+                <span class="tag" id="productTag">Men</span>
+
+                <h1 id="productName">Classic Cotton Tee</h1>
+
+                <p class="desc" id="productDesc">
+                    Stylish cotton T-shirt for men.
+                </p>
+
+                <p class="price" id="productPrice">₹999</p>
+
+            
+
+                <div class="mt-3">
+                    <span class="badge bg-dark">4.5 ★</span>
+                    <span>(120 Reviews)</span>
+                </div>
+
+                <ul class="nav nav-tabs mt-4">
+
+                    <li class="nav-item">
+                        <button class="nav-link active"
+                            data-bs-toggle="tab"
+                            data-bs-target="#details">
+                            Details
+                        </button>
+                    </li>
+
+                    <li class="nav-item">
+                        <button class="nav-link"
+                            data-bs-toggle="tab"
+                            data-bs-target="#features">
+                            Features
+                        </button>
+                    </li>
+
+                    <li class="nav-item">
+                        <button class="nav-link"
+                            data-bs-toggle="tab"
+                            data-bs-target="#reviews">
+                            Reviews
+                        </button>
+                    </li>
+
+                </ul>
+
+                <div class="tab-content border border-dark p-3">
+
+                    <div class="tab-pane fade show active" id="details">
+                        <p>
+                            Premium quality fashion product with modern design and comfortable fitting.
+                        </p>
+                    </div>
+
+                    <div class="tab-pane fade" id="features">
+
+                        <ul>
+                            <li>100% Cotton</li>
+                            <li>Comfort Fit</li>
+                            <li>Premium Fabric</li>
+                            <li>Washable</li>
+                        </ul>
+
+                    </div>
+
+                    <div class="tab-pane fade" id="reviews">
+
+                        <div class="border-bottom mb-2 pb-2">
+                            <h6>Rahul ★★★★★</h6>
+                            <p>Very nice product quality.</p>
+                        </div>
+
+                        <div>
+                            <h6>Priya ★★★★☆</h6>
+                            <p>Comfortable and stylish.</p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Pills -->
+
+                <ul class="nav nav-pills mt-4 mb-3">
+
+                    <li class="nav-item">
+                        <button class="nav-link active"
+                            data-bs-toggle="pill"
+                            data-bs-target="#offer">
+                            Offers
+                        </button>
+                    </li>
+
+                    <li class="nav-item ms-2">
+                        <button class="nav-link"
+                            data-bs-toggle="pill"
+                            data-bs-target="#delivery">
+                            Delivery
+                        </button>
+                    </li>
+
+                    <li class="nav-item ms-2">
+                        <button class="nav-link"
+                            data-bs-toggle="pill"
+                            data-bs-target="#return">
+                            Return
+                        </button>
+                    </li>
+
+                </ul>
+
+                <div class="tab-content border border-dark p-3">
+
+                    <div class="tab-pane fade show active" id="offer">
+                        <p>Get 10% OFF on first order.</p>
+                    </div>
+
+                    <div class="tab-pane fade" id="delivery">
+                        <p>Free delivery in 3-5 days.</p>
+                    </div>
+
+                    <div class="tab-pane fade" id="return">
+                        <p>Easy 7 days return available.</p>
+                    </div>
+
+                </div>
+
+
+                <div class="sizes mt-4">
+
+                    <p class="label">Select Size</p>
+
+                    <div class="size-row">
+
+                        <button type="button" class="size">XS</button>
+
+                        <button type="button" class="size">S</button>
+
+                        <button type="button" class="size">M</button>
+
+                        <button type="button" class="size">L</button>
+
+                        <button type="button" class="size">XL</button>
+
+                        <button type="button" class="size">XXL</button>
+
+                    </div>
+
+                </div>
+
+                <div class="d-flex flex-wrap gap-3 mt-4">
+
+                    <button type="button" class="btn btn-dark" id="addToCartBtn">
+                        Add To Cart
+                    </button>
+
+                    <button type="button" class="btn btn-outline-dark" id="buyNowBtn">
+                        Buy Now
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <div id="footer"></div>
+
+    <script>
+        var currentProduct = null;
+
+        function getQueryId() {
+            var params = new URLSearchParams(window.location.search);
+            return params.get('id');
+        }
+
+        function renderProduct(product) {
+            currentProduct = product;
+            document.title = product.name + ' — Product Detail';
+            document.getElementById('img').src = product.image;
+            document.getElementById('img').alt = product.name;
+            document.getElementById('productTag').textContent = product.categoryLabel;
+            document.getElementById('productName').textContent = product.name;
+            document.getElementById('productDesc').textContent = product.desc;
+            document.getElementById('productPrice').textContent = '₹' + product.price;
+        }
+
+        function showNotFound() {
+            document.getElementById('main').innerHTML =
+                '<a href="category.html" class="back">← Back to category</a>' +
+                '<p class="mt-4">Product not found. <a href="category.html">Browse all products</a>.</p>';
+        }
+
+        function getCart() {
+            return JSON.parse(localStorage.getItem('silverCart')) || [];
+        }
+
+        function saveCart(cart) {
+            localStorage.setItem('silverCart', JSON.stringify(cart));
+        }
+
+        function addCurrentToCart() {
+            if (!currentProduct) return;
+            var cart = getCart();
+            var found = cart.find(function (item) {
+                return item.id === currentProduct.id;
+            });
+            if (found) {
+                found.qty += 1;
+            } else {
+                cart.push({
+                    id: currentProduct.id,
+                    name: currentProduct.name,
+                    desc: currentProduct.desc,
+                    price: currentProduct.price,
+                    image: currentProduct.image,
+                    qty: 1
+                });
+            }
+            saveCart(cart);
+            alert(currentProduct.name + ' added to cart!');
+        }
+
+        document.querySelectorAll('.size').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                document.querySelectorAll('.size').forEach(function (b) {
+                    b.classList.remove('on');
+                });
+                btn.classList.add('on');
+            });
+        });
+
+        var productId = getQueryId();
+        var product = getProductById(productId);
+        if (product) {
+            renderProduct(product);
+        } else {
+            showNotFound();
+        }
+
+        var addBtn = document.getElementById('addToCartBtn');
+        if (addBtn) {
+            addBtn.addEventListener('click', addCurrentToCart);
+        }
+
+        var buyBtn = document.getElementById('buyNowBtn');
+        if (buyBtn) {
+            buyBtn.addEventListener('click', function () {
+                addCurrentToCart();
+                window.location.href = 'cart.html';
+            });
+        }
+
+        $(document).ready(function () {
+            $('#header').load('header.html');
+            $('#footer').load('footer.html');
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

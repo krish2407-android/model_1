@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./css/payment.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+
+    <div id="header"></div>
+    <section class="section">
+        <h1>Payment</h1>
+        <div class="container">
+            <div class="leftform">
+                <h2>Delivery Details</h2>
+                <form id="paymentForm">
+                    <div class="input">
+                        <label>Full Name</label>
+                        <input type="text" placeholder="Enter your name" required>
+                    </div>
+                    <div class="input">
+                        <label>Phone Number</label>
+                        <input type="tel" placeholder="Enter mobile number" required>
+                    </div>
+                    <div class="input">
+                        <label>Address</label>
+                        <textarea rows="3" placeholder="House no, street, area" required></textarea>
+                    </div>
+                    <div class="input">
+                        <label>City</label>
+                        <input type="text" placeholder="Enter city" required>
+                    </div>
+                    <div class="input">
+                        <label>Pincode</label>
+                        <input type="text" placeholder="Enter pincode" required>
+                    </div>
+                    <h2 class="heading">Payment Method</h2>
+                    <div class="payoptions">
+                        <label class="payopt">
+                            <input type="radio" name="pay" value="upi" checked>
+                            <span>UPI</span>
+                        </label>
+                        <label class="payopt">
+                            <input type="radio" name="pay" value="card">
+                            <span>Debit / Credit Card</span>
+                        </label>
+                        <label class="payopt">
+                            <input type="radio" name="pay" value="cod">
+                            <span>Cash on Delivery</span>
+                        </label>
+                    </div>
+
+                    <div class="upi" id="upiBox">
+                        <p class="title">Pay with UPI</p>
+                        <p class="upi">Enter your UPI ID linked to PhonePe, GPay, or Paytm</p>
+                        <div class="input">
+                            <label>UPI ID</label>
+                            <input type="text" id="upiId" placeholder="yourname@paytm" required>
+                        </div>
+                    </div>
+
+                    <div class="cardbox" id="cardBox">
+                        <div class="input">
+                            <label>Card Number</label>
+                            <input type="text" placeholder="1234 5678 9012 3456" maxlength="19" required>
+                        </div>
+                        <div class="col">
+                            <div class="input">
+                                <label>Expiry</label>
+                                <input type="text" placeholder="MM/YY" maxlength="5" required>
+                            </div>
+                            <div class="input">
+                                <label>CVV</label>
+                                <input type="password" placeholder="123" maxlength="3" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn" id="payBtn">Pay ₹0</button>
+                </form>
+            </div>
+
+            <div class="rightsummary">
+                <h2>Order Summary</h2>
+                <p class="count" id="itemCount">0 items</p>
+                <div id="orderItems" class="items"></div>
+                <div class="bill">
+                    <div class="price">
+                        <span>Subtotal</span>
+                        <span id="subtotal">₹0</span>
+                    </div>
+                    <div class="price">
+                        <span>Delivery</span>
+                        <span id="delivery">₹0</span>
+                    </div>
+                    <div class="price total">
+                        <span>Total</span>
+                        <span id="total">₹0</span>
+                    </div>
+                </div>
+                <a href="cart.html" class="link">← Back to Cart</a>
+            </div>
+
+        </div>
+    </section>
+
+    <div id="footer"></div>
+
+    <div class="modal fade" id="successModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Payment Successful</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Thank you for shopping at Silver Fashion! Your order has been placed.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-dark" id="goHomeBtn">Continue Shopping</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var payOptions = document.querySelectorAll('input[name="pay"]');
+        var upiBox = document.getElementById('upiBox');
+        var cardBox = document.getElementById('cardBox');
+        var upiInput = document.getElementById('upiId');
+        var cardInputs = cardBox.querySelectorAll('input');
+        var successModal = new bootstrap.Modal(document.getElementById('successModal'));
+
+        function showPayFields() {
+//             $(document).ready(function(){
+//             $(".payoptions").after("<p id='offerText'>Secure payment available on Silver Fashion</p>");
+//             $("#upiId").attr("placeholder","example@upi");
+//             $("input[value='cod']").closest(".payopt").remove();
+// // $(".payoptions").append("<label class='payopt'><input type='radio' name='pay' value='netbanking'><span>Net Banking</span></label>");
+//             payOptions=document.querySelectorAll("input[name='pay']");
+//             payOptions.forEach(function(option){
+//             option.addEventListener("change",showPayFields);
+//             });
+//                 });
+            var method = document.querySelector('input[name="pay"]:checked').value;
+
+            if (method === 'upi') {
+                upiBox.style.display = 'block';
+                cardBox.style.display = 'none';
+                upiInput.required = true;
+                cardInputs.forEach(function(inp) { inp.required = false; });
+            } else if (method === 'card') {
+                upiBox.style.display = 'none';
+                cardBox.style.display = 'block';
+                upiInput.required = false;
+                cardInputs.forEach(function(inp) { inp.required = true; });
+            } else {
+                upiBox.style.display = 'none';
+                cardBox.style.display = 'none';
+                upiInput.required = false;
+                cardInputs.forEach(function(inp) { inp.required = false; });
+            }
+        }
+
+        payOptions.forEach(function(option) {
+            option.addEventListener('change', showPayFields);
+        });
+
+        showPayFields();
+
+        function getCart() {
+            return JSON.parse(localStorage.getItem('silverCart')) || [];
+        }
+
+        function getCheckoutItems() {
+            var buyNow = localStorage.getItem('silverBuyNow');
+            if (buyNow) {
+                return JSON.parse(buyNow);
+            }
+            return getCart();
+        }
+
+        function renderOrder() {
+            var cart = getCheckoutItems();
+            var box = document.getElementById('orderItems');
+            var subtotal = 0;
+
+            if (cart.length === 0) {
+                box.innerHTML = '<p class="empty-msg">No items in cart.</p>';
+                window.location.href = 'cart.html';
+                return;
+            }
+
+            var html = '';
+            var totalQty = 0;
+            cart.forEach(function(item) {
+                subtotal += item.price * item.qty;
+                totalQty += item.qty;
+                var meta = 'Qty ' + item.qty;
+                if (item.size) meta += ' · Size ' + item.size;
+                html += '<div class="item">';
+                html += '<img src="' + item.image + '" alt="' + item.name + '">';
+                html += '<div class="item-text">';
+                html += '<p class="name">' + item.name + '</p>';
+                html += '<p class="meta">' + meta + '</p>';
+                html += '<p class="cost">₹' + (item.price * item.qty) + '</p>';
+                html += '</div>';
+                html += '</div>';
+            });
+            box.innerHTML = html;
+
+            var delivery = 99;
+            var total = subtotal + delivery;
+            document.getElementById('itemCount').textContent = cart.length + ' product(s) · ' + totalQty + ' item(s)';
+            document.getElementById('subtotal').textContent = '₹' + subtotal;
+            document.getElementById('delivery').textContent = '₹' + delivery;
+            document.getElementById('total').textContent = '₹' + total;
+            document.getElementById('payBtn').textContent = 'Pay ₹' + total;
+        }
+
+        renderOrder();
+
+        function orderOwnerEmail() {
+            if (localStorage.getItem('silverLoggedIn') !== '1') {
+                return '';
+            }
+            try {
+                var u = JSON.parse(localStorage.getItem('silverUser') || '{}');
+                return (u.email || '').trim().toLowerCase();
+            } catch (err) {
+                return '';
+            }
+        }
+
+        function saveOrderToHistory(items, subtotal, delivery, total) {
+            var email = orderOwnerEmail();
+            var orders = [];
+            try {
+                orders = JSON.parse(localStorage.getItem('silverOrders') || '[]');
+            } catch (err) {
+                orders = [];
+            }
+            var orderId = 'SF' + Date.now().toString(36).toUpperCase();
+            var snapshot = items.map(function (it) {
+                return {
+                    id: it.id,
+                    name: it.name,
+                    price: it.price,
+                    qty: it.qty,
+                    size: it.size || '',
+                    image: it.image
+                };
+            });
+            var method =
+                (document.querySelector('input[name="pay"]:checked') || {})
+                    .value || 'cod';
+            orders.unshift({
+                id: orderId,
+                email: email,
+                date: new Date().toISOString(),
+                status: 'Processing',
+                subtotal: subtotal,
+                delivery: delivery,
+                total: total,
+                paymentMethod: method,
+                items: snapshot
+            });
+            localStorage.setItem('silverOrders', JSON.stringify(orders));
+        }
+
+        document.getElementById('paymentForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            var items = getCheckoutItems();
+            if (items.length === 0) {
+                window.location.href = 'cart.html';
+                return;
+            }
+            var subtotal = 0;
+            items.forEach(function (item) {
+                subtotal += item.price * item.qty;
+            });
+            var delivery = 99;
+            var total = subtotal + delivery;
+            saveOrderToHistory(items, subtotal, delivery, total);
+            localStorage.removeItem('silverCart');
+            localStorage.removeItem('silverBuyNow');
+            successModal.show();
+        });
+
+        document.getElementById('goHomeBtn').addEventListener('click', function() {
+            successModal.hide();
+            window.location.href = 'index.html';
+        });
+
+        $(document).ready(function() {
+            $("#header").load("header.html");
+            $("#footer").load("footer.html");
+        });
+    </script>
+
+</body>
+</html>
