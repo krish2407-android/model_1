@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./Register.css"; 
+import Header from "./Header.js";
 
 function Register() {
   const navigate = useNavigate();
@@ -32,7 +33,10 @@ function Register() {
   };
 
 
-  return (
+ return (
+  <>
+    <Header />
+
     <div className="register-container">
       <form onSubmit={handleSubmit} className="register-form">
         <h2>Register Form</h2>
@@ -63,10 +67,13 @@ function Register() {
 
         {error && <p className="error-text">{error}</p>}
 
-        <button type="submit" className="submit-btn">Register</button>
+        <button type="submit" className="submit-btn">
+          Register
+        </button>
       </form>
     </div>
-  );
+  </>
+);
 }
 
 export default Register;

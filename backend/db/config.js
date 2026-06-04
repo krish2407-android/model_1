@@ -37,6 +37,24 @@ app.post("/api/register", async (req, res) => {
   }
 });
 
+//get data user show
+app.get("/api/register", async (req, res) => {
+  try {
+    const registerData = await register.find();
+
+    res.status(200).json({
+      success: true,
+      data: registerData
+    });
+
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message
+    });
+  }
+});
+
 app.listen(2407, () => {
   console.log("Server running on http://localhost:2407");
 });

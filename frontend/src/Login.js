@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom"; 
+import Header from "./Header";
 
 function Login() {
   const navigate = useNavigate();
@@ -31,10 +32,12 @@ function Login() {
 
 
   return (
+  <>
+    <Header />
+
     <div className="register-container">
       <form onSubmit={handleSubmit} className="register-form">
         <h2>Login</h2>
-
 
         <input
           type="email"
@@ -54,10 +57,13 @@ function Login() {
 
         {error && <p className="error-text">{error}</p>}
 
-        <button type="submit" className="submit-btn">Login</button>
+        <button type="submit" className="submit-btn">
+          Login
+        </button>
       </form>
     </div>
-  );
+  </>
+);
 }
 
 export default Login;
