@@ -8,7 +8,8 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-mongoose.connect("mongodb://127.0.0.1:27017/shopping")
+mongoose
+  .connect(process.env.MONGO_URL || "mongodb://127.0.0.1:27017/shopping")
   .then(() => console.log("MongoDB Connected"))
   .catch((err) => console.log(err));
 
@@ -19,42 +20,41 @@ app.post("/api/register", async (req, res) => {
     const user = new register({
       name,
       email,
-      password
+      password,
     });
 
     await user.save();
 
     res.status(201).json({
       success: true,
-      message: "User Registered Successfully"
+      message: "User Registered Successfully",
     });
-
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: error.message
+      message: error.message,
     });
   }
 });
 
-//get data user show
 app.get("/api/register", async (req, res) => {
   try {
     const registerData = await register.find();
 
     res.status(200).json({
       success: true,
-      data: registerData
+      data: registerData,
     });
-
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: error.message
+      message: error.message,
     });
   }
 });
 
-app.listen(2407, () => {
-  console.log("Server running on http://localhost:2407");
+const PORT = process.env.PORT || 2407;
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
