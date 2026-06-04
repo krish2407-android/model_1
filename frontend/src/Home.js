@@ -11,10 +11,10 @@ function Home() {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          height: "80vh",
+          height: "600px",
         }}
       >
-        <h1>Welcome To Home Page</h1>
+        <h1>Welcome To Home Page ....</h1>
       </div>
     </>
   );
