@@ -74,7 +74,7 @@ function Register() {
       setEmail("");
       setPassword("");
 
-      navigate("/Login");
+      navigate("/");
     } catch (err) {
       if (err.response?.data?.message) {
         setError(err.response.data.message);
