@@ -14,13 +14,11 @@ function Register() {
   const [error, setError] = useState("");
 
   const validateForm = () => {
-
-    // Name Validation
     if (!name.trim()) {
       return "Name is required";
     }
 
-    if (name.length < 3) {
+    if (name.trim().length < 3) {
       return "Name must be at least 3 characters";
     }
 
@@ -28,7 +26,6 @@ function Register() {
       return "Name should contain only letters";
     }
 
-    // Email Validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!email.trim()) {
@@ -39,7 +36,6 @@ function Register() {
       return "Enter valid email address";
     }
 
-    // Password Validation
     const passwordRegex =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
@@ -56,6 +52,7 @@ function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
 
     const validationError = validateForm();
 
@@ -65,14 +62,11 @@ function Register() {
     }
 
     try {
-      const response = await axios.post(
-        "http://localhost:2407/api/register",
-        {
-          name,
-          email,
-          password,
-        }
-      );
+      await axios.post("http://localhost:2407/api/register", {
+        name: name.trim(),
+        email: email.trim(),
+        password,
+      });
 
       alert("Registration Successful");
 
@@ -80,7 +74,7 @@ function Register() {
       setEmail("");
       setPassword("");
 
-      navigate("/");
+      navigate("/Login");
     } catch (err) {
       if (err.response?.data?.message) {
         setError(err.response.data.message);
@@ -137,26 +131,24 @@ function Register() {
           <button type="submit" className="submit-btn">
             Register
           </button>
-          <div className="register-links">
-  <p>
-    Already have an account?{" "}
-    <span
-      className="link-text"
-      onClick={() => navigate("/")}
-    >
-      Login Now
-    </span>
-  </p>
 
-  <p>
-    <span
-      className="link-text"
-      onClick={() => navigate("/ForgotPassword")}
-    >
-      Forgot Password?
-    </span>
-  </p>
-</div>
+          <div className="register-links">
+            <p>
+              Already have an account?{" "}
+              <span className="link-text" onClick={() => navigate("/")}>
+                Login Now
+              </span>
+            </p>
+
+            <p>
+              <span
+                className="link-text"
+                onClick={() => navigate("/ForgotPassword")}
+              >
+                Forgot Password?
+              </span>
+            </p>
+          </div>
         </form>
       </div>
     </>
