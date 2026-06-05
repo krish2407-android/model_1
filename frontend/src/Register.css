@@ -71,3 +71,23 @@
   margin: -10px 0 15px 0;
   text-align: left;
 }
+.register-links {
+  margin-top: 15px;
+  text-align: center;
+}
+
+.register-links p {
+  margin: 8px 0;
+  font-size: 14px;
+}
+
+.link-text {
+  color: #007bff;
+  cursor: pointer;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.link-text:hover {
+  text-decoration: underline;
+}

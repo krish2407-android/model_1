@@ -10,11 +10,11 @@ import Showuser from "./Showuser";
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
+      <Route path="/Home" element={<Home />} />
       <Route path="/Header" element={<Header />} />
       <Route path="/Apicalling" element={<Apicalling />} />
       <Route path="/Register" element={<Register/>}/>      
-      <Route path="/Login" element={<Login/>}/>      
+      <Route path="/" element={<Login/>}/>      
       <Route path="/showuser" element={<Showuser/>}/>      
 
     </Routes>
